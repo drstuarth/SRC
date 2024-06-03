@@ -6,15 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Health Plus Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
     Smartphone Compatible web template, free web designs for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-        function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!-- //for-meta-tags-->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="css/wickedpicker.css" rel="stylesheet" type='text/css' media="all" />
-    <link rel="stylesheet" href="css/jquery-ui.css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <!-- font-awesome icons -->
     <link href="css/font-awesome.css" rel="stylesheet"> 
@@ -104,7 +101,7 @@
                 <div class="right-agileinfo same">
                     <div class="gaps">
                         <p>Fecha</p>
-                        <input id="datepicker1" name="date" type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+                        <input id="datepicker1" name="date" type="text" value="" required="">
                     </div>
                     <div class="gaps">
                         <p>Area</p>
@@ -127,7 +124,7 @@
                     </div>
                     <div class="gaps">
                         <p>Tiempo</p>
-                        <input type="text" id="timepicker" name="time" class="timepicker option" value="" required>
+                        <input type="text" id="timepicker" name="time" class="timepicker option" required>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -142,7 +139,6 @@
     const firebaseConfig = {
         apiKey: "AIzaSyAQ62IM8yEMdPdQFepP9Faojj3JK8oryzc",
         authDomain: "sistemareservaciones-584be.firebaseapp.com",
-        databaseURL: "https://sistemareservaciones-584be.firebaseio.com",
         projectId: "sistemareservaciones-584be",
         storageBucket: "sistemareservaciones-584be.appspot.com",
         messagingSenderId: "1060448849855",
@@ -179,6 +175,7 @@
                     .then((response) => {
                         alert("Cita reservada y confirmación enviada!");
                     }, (error) => {
+                        console.error("Error al enviar el correo: ", error);
                         alert("Cita reservada, pero fallo el envío de confirmación.");
                     });
             })
@@ -186,6 +183,27 @@
                 console.error("Error saving data: ", error);
             });
     });
+
+    // Initialize datepicker
+    $(function() {
+        $("#datepicker1").datepicker({
+            dateFormat: "dd/mm/yy",
+            minDate: 0
+        });
+
+        // Initialize timepicker
+        $('#timepicker').timepicker({
+            timeFormat: 'HH:mm',
+            interval: 60,
+            minTime: '07:00',
+            maxTime: '20:00',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
+    });
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
 </body>
 </html>
