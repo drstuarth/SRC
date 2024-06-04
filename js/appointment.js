@@ -1,18 +1,16 @@
-import { database } from "./firebase.js";
-
 // Escuchar el evento de envío del formulario
 document.getElementById('appointmentForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Evitar el envío del formulario
 
     // Obtener los valores del formulario
-    const formData = new FormData(event.target);
-    const date = formData.get('date');
-    const time = formData.get('time');
+    var formData = new FormData(event.target);
+    var date = formData.get('date');
+    var time = formData.get('time');
 
     // Verificar si la hora seleccionada está disponible en la base de datos
-    const appointmentsRef = database.ref('appointments/' + date + '/' + time);
+    var appointmentsRef = database.ref('appointments/' + date + '/' + time);
     appointmentsRef.once('value', function(snapshot) {
-        const appointment = snapshot.val();
+        var appointment = snapshot.val();
         if (appointment === null) {
             // La hora está disponible, guardar la cita en la base de datos
             appointmentsRef.set({
