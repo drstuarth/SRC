@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <!-- Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Iniciar Sesión</h1>
+    <button id="google-signin-btn">Iniciar sesión con Google</button>
+
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAQ62IM8yEMdPdQFepP9Faojj3JK8oryzc",
+            authDomain: "sistemareservaciones-584be.firebaseapp.com",
+            projectId: "sistemareservaciones-584be",
+            storageBucket: "sistemareservaciones-584be.appspot.com",
+            messagingSenderId: "1060448849855",
+            appId: "1:1060448849855:web:335be69bdc4e6bf7145b0a",
+            measurementId: "G-K9487NEQ7W"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Función para iniciar sesión con Google
+        function signInWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+            .then((result) => {
+                // Obtener el usuario actual
+                const user = result.user;
+                // Verificar el rol del usuario por su correo electrónico
+                const isAdmin = user.email.endsWith('dr.stuarthgonz@gmail.com'); // Reemplaza 'tudominio.com' por el dominio del administrador
+                // Redirigir según el rol
+                if (isAdmin) {
+                    window.location.href = 'admin.html'; // Redirigir al administrador
+                } else {
+                    window.location.href = 'user.html'; // Redirigir al cliente
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+
+        // Asociar el evento de clic al botón de inicio de sesión con Google
+        $(document).ready(function() {
+            $('#google-signin-btn').click(signInWithGoogle);
+        });
+    </script>
+</body>
+</html>
