@@ -358,7 +358,7 @@ function saveAppointment(patientName, phoneNumber, email, date, symptoms, area, 
 }
 
 function sendEmail(patientName, email, date, time, area) {
-    emailjs.send("your_service_id", "your_template_id", {
+    emailjs.send("service_SRC", "SRC", {
         patient_name: patientName,
         to_email: email,
         date,
