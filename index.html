@@ -10,6 +10,101 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            margin: 100px auto;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #firebaseui-auth-container {
+            text-align: center;
+        }
+
+        .firebaseui-card {
+            max-width: 320px;
+            margin: auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .firebaseui-card-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .firebaseui-title {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .firebaseui-subtitle {
+            margin: 10px 0 0;
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .firebaseui-container {
+            padding: 20px;
+        }
+
+        .firebaseui-text {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .firebaseui-idp-button {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4285f4;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .firebaseui-idp-button:hover {
+            background-color: #357ae8;
+        }
+
+        .firebaseui-idp-icon-wrapper {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .firebaseui-idp-icon {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor para el widget de autenticación -->
+    <div class="container">
+        <h2>Iniciar Sesión</h2>
+        <div id="firebaseui-auth-container"></div>
+    </div>
+
+    <!-- Configuración de Firebase y FirebaseUI -->
     <script>
         // Configuración de Firebase
         var firebaseConfig = {
@@ -51,9 +146,6 @@
         // Mostrar el widget de FirebaseUI para autenticación en el elemento con el ID 'firebaseui-auth-container'
         ui.start('#firebaseui-auth-container', uiConfig);
     </script>
-</head>
-<body>
-    <!-- Contenedor para el widget de autenticación -->
-    <div id="firebaseui-auth-container"></div>
 </body>
 </html>
+
