@@ -1,59 +1,59 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <!-- Firebase JavaScript SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-<body>
-    <h1>Iniciar Sesión</h1>
-    <button id="google-signin-btn">Iniciar sesión con Google</button>
-
+    <title>Login</title>
+    <!-- FirebaseUI para autenticación -->
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
     <script>
         // Configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyAQ62IM8yEMdPdQFepP9Faojj3JK8oryzc",
-            authDomain: "sistemareservaciones-584be.firebaseapp.com",
-            projectId: "sistemareservaciones-584be",
-            storageBucket: "sistemareservaciones-584be.appspot.com",
-            messagingSenderId: "1060448849855",
-            appId: "1:1060448849855:web:335be69bdc4e6bf7145b0a",
-            measurementId: "G-K9487NEQ7W"
+        var firebaseConfig = {
+              apiKey: "AIzaSyAQ62IM8yEMdPdQFepP9Faojj3JK8oryzc",
+              authDomain: "sistemareservaciones-584be.firebaseapp.com",
+              projectId: "sistemareservaciones-584be",
+              storageBucket: "sistemareservaciones-584be.appspot.com",
+              messagingSenderId: "1060448849855",
+              appId: "1:1060448849855:web:335be69bdc4e6bf7145b0a"
         };
-
         // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
 
-        // Función para iniciar sesión con Google
-        function signInWithGoogle() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider)
-            .then((result) => {
-                // Obtener el usuario actual
-                const user = result.user;
-                // Verificar el rol del usuario por su correo electrónico
-                const isAdmin = user.email.endsWith('dr.stuarthgonz@gmail.com'); // Reemplaza 'tudominio.com' por el dominio del administrador
-                // Redirigir según el rol
-                if (isAdmin) {
-                    window.location.href = 'admin.html'; // Redirigir al administrador
-                } else {
-                    window.location.href = 'user.html'; // Redirigir al cliente
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        }
+        // Inicializar FirebaseUI para autenticación con Google
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-        // Asociar el evento de clic al botón de inicio de sesión con Google
-        $(document).ready(function() {
-            $('#google-signin-btn').click(signInWithGoogle);
-        });
+        // Configuración de la autenticación con Google
+        var uiConfig = {
+            signInSuccessUrl: 'index.html', // URL a la que redirigir después del inicio de sesión exitoso
+            signInOptions: [
+                // Proveedor de inicio de sesión con Google
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID
+            ],
+            callbacks: {
+                // Función para manejar el inicio de sesión exitoso
+                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                    // Redirigir a diferentes páginas según el usuario
+                    if (authResult.user.email === "dr.stuarthgonz@gmail.com") {
+                        window.location.href = "admin.html";
+                    } else {
+                        window.location.href = "user.html";
+                    }
+                    // Evitar el redireccionamiento automático proporcionado por signInSuccessUrl
+                    return false;
+                }
+            }
+        };
+
+        // Mostrar el widget de FirebaseUI para autenticación en el elemento con el ID 'firebaseui-auth-container'
+        ui.start('#firebaseui-auth-container', uiConfig);
     </script>
+</head>
+<body>
+    <!-- Contenedor para el widget de autenticación -->
+    <div id="firebaseui-auth-container"></div>
 </body>
 </html>
