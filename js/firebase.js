@@ -23,12 +23,12 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
   const time = formData.get('time');
 
   // Verificar si la hora seleccionada está disponible en la base de datos
-  const appointmentsRef = database.ref('appointments/' + date + '/' + time);
+  const appointmentsRef = database.ref('appointments/' + date);
   appointmentsRef.once('value', function(snapshot) {
     const appointment = snapshot.val();
-    if (appointment === null) {
+    if (appointment === null || !appointment.hasOwnProperty(time)) {
       // La hora está disponible, guardar la cita en la base de datos
-      appointmentsRef.set({
+      appointmentsRef.child(time).set({
         patientName: formData.get('patientName'),
         phoneNumber: formData.get('phoneNumber'),
         email: formData.get('email'),
