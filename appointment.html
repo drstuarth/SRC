@@ -118,7 +118,7 @@ Smartphone Compatible web template, free web designs for Nokia, Samsung, LG, Son
                     <div class="right-agileinfo same">
                         <div class="gaps">
                             <p>Fecha</p>
-                            <input id="datepicker1" name="date" type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+                            <input id="datepicker1" name="date" type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/aaaa';}" required="">
                         </div>
                         <div class="gaps">
                             <p>Area</p>
@@ -126,9 +126,8 @@ Smartphone Compatible web template, free web designs for Nokia, Samsung, LG, Son
                                 <option value=""></option>
                                 <option value="Ginecologia">Ginecologia</option>
                                 <option value="Obstetricia">Obstetricia</option>
+				<option value="Tratamiento">Consulta</option>
                                 <option value="Tratamiento">Tratamiento</option>
-                                <option value="Prenatal">Prenatal</option>
-                                <option value="Terapia">Terapia</option>
                             </select>
                         </div>
                         <div class="gaps">
@@ -151,55 +150,7 @@ Smartphone Compatible web template, free web designs for Nokia, Samsung, LG, Son
         </div>
     </div>
 
-    <script>
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            databaseURL: "YOUR_DATABASE_URL",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // EmailJS initialization
-        (function() {
-            emailjs.init("YOUR_USER_ID");
-        })();
-
-        // Form submission handler
-        document.getElementById('appointmentForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            // Get form data
-            const formData = new FormData(event.target);
-            const appointmentData = {};
-            formData.forEach((value, key) => {
-                appointmentData[key] = value;
-            });
-
-            // Save data to Firebase
-            const newAppointmentRef = database.ref('appointments').push();
-            newAppointmentRef.set(appointmentData)
-                .then(() => {
-                    // Send confirmation email
-                    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", appointmentData)
-                        .then((response) => {
-                            alert("Cita reservada y confirmación enviada!");
-                        }, (error) => {
-                            alert("Cita reservada, pero fallo el envío de confirmación.");
-                        });
-                })
-                .catch((error) => {
-                    console.error("Error saving data: ", error);
-                });
-        });
-    </script>
 <!-- icons -->
 
 
