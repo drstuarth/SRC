@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Font Awesome CSS -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Navbar Header -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Admin Dashboard</a>
+            </div>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Inicio</a></li>
+                    <li><a href="about.html">Nosotros</a></li>
+                    <li><a href="appointment.html">Citas</a></li>
+                    <li><a href="gallery.html">Galería</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Bienvenido Administrador</h1>
+        </div>
+        <!-- Page Tabs -->
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Inicio</a></li>
+            <li><a data-toggle="tab" href="#horarios">Gestión de Horarios</a></li>
+            <!-- Agrega más pestañas según sea necesario -->
+        </ul>
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Home Tab -->
+            <div id="home" class="tab-pane fade in active">
+                <h3>Panel de Control</h3>
+                <p>Aquí puedes administrar tu sitio web.</p>
+            </div>
+            <!-- Horarios Tab -->
+            <div id="horarios" class="tab-pane fade">
+                <h3>Gestión de Horarios</h3>
+                <p>Aquí puedes administrar los horarios de atención.</p>
+                <!-- Agrega el contenido de la gestión de horarios aquí -->
+            </div>
+            <!-- Agrega más pestañas según sea necesario -->
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
