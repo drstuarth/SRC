@@ -13,9 +13,7 @@ const firebaseConfig = {
 };
 
 // Inicialización de la aplicación Firebase
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 // Obtención de la referencia a la base de datos
-const database = getDatabase(app);
-
-export { database };
+var database = firebase.database();
