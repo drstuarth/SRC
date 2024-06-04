@@ -1,229 +1,45 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-    <!-- for-meta-tags-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Health Plus Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free web designs for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="css/wickedpicker.css" rel="stylesheet" type='text/css' media="all" />
-    <link rel="stylesheet" href="css/jquery-ui.css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="css/font-awesome.css" rel="stylesheet"> 
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
-    <script type="module" src="js/firebase.js"></script>
-    <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
-    <script src="js/jquery-2.2.3.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <!-- <link href="//fonts.googleapis.com/css?family=Raleway:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800" rel="stylesheet">
-<link href="//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900" rel="stylesheet"> -->
-
-
-        // Inicialización de Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        // Referencia a la base de datos
-        var database = firebase.database();
-    </script>
-    <script src="js/appointment.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva tu cita</title>
+    <!-- Enlaces a los estilos CSS y otras dependencias -->
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
 </head>
-
 <body>
-    <div class="main" id="home">
-        <!-- Encabezado -->
-        <div class="header_agileinfo">
-            <div class="w3_agileits_header_text">
-                <ul class="top_agile_w3l_info_icons">
-                    <li><i class="fa fa-home" aria-hidden="true"></i>WTC Ciudad de México</li>
-                    <li class="second"><i class="fa fa-phone" aria-hidden="true"></i>(+52) 5621204896</li>
-                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:drstuarthgonz@gmail.com">drstuarthgonz@gmail.com</a></li>
-                </ul>
+    <div class="container">
+        <h1>Reserva tu cita</h1>
+        <form id="appointmentForm">
+            <div class="form-group">
+                <label for="patientName">Nombre completo:</label>
+                <input type="text" id="patientName" name="patientName" required>
             </div>
-            <div class="agileinfo_social_icons">
-                <ul class="agileits_social_list">
-                    <li><a href="https://www.facebook.com/" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="https://twitter.com/" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href="https://www.linkedin.com/in/vikash-kumar-040006166/" class="w3_agile_linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                </ul>
+            <div class="form-group">
+                <label for="phoneNumber">Número de teléfono:</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" required>
             </div>
-            <div class="clearfix"> </div>
-        </div>				
-
-        <div class="header-bottom">
-            <nav class="navbar navbar-default">
-                <!-- Marca y botón de alternancia para el menú de navegación -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <div class="logo">
-                        <h3><a class="navbar-brand" href="index.html"> Dr. Stuarth <p>Gonzalez</p></a></h3>
-                    </div>
-                </div>
-
-                <!-- Elementos del menú -->
-                <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-                    <nav class="menu menu--sebastian">
-                        <ul id="m_nav_list" class="m_nav menu__list">
-                            <li class="m_nav_item menu__item" id="m_nav_item_1"> <a href="index.html" class="menu__link"> Inicio&nbsp; </a></li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_2"> <a href="about.html" class="menu__link">Nosotros</a> </li>		
-                            <li class="m_nav_item menu__item menu__item--current" id="moble_nav_item_4"> <a href="appointment.html" class="menu__link">Citas&nbsp;&nbsp; </a> </li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_5"> <a href="gallery.html" class="menu__link">Galeria</a> </li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_6"> <a href="contact.html" class="menu__link">Contacto</a> </li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_3 dropdown"> <a href="#" class="menu__link dropdown-toggle" data-toggle="dropdown">Sesion<b class="caret"></b></a> 
-                                <ul class="dropdown-menu agile_short_dropdown">
-                                    <!--<li><a href="dlogin.html">Doctor</a></li>
-                                    <li><a href="plogin.html">Patient</a></li><br>
-                                    <li><a href="login.php">Admin</a></li> -->
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </nav>
-        </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="symptoms">Síntomas:</label>
+                <textarea id="symptoms" name="symptoms" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="date">Fecha:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Hora:</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+            <button type="submit">Reservar cita</button>
+        </form>
     </div>
-    <!-- Formulario de reserva de cita -->
-    <div class="banner-bottom" id="about">
-        <div class="container">
-            <h2 class="w3_heade_tittle_agile">Reserva tu Cita</h2>
-            <p class="sub_t_agileits">Ahora mismo</p>
-            <div class="book-appointment">
-                <h4>Rellena el formulario</h4>
-                <form id="appointmentForm">
-                    <div class="left-agileits-w3layouts same">
-                        <div class="gaps">
-                            <p>Nombre completo</p>
-                            <input type="text" name="patientName" placeholder="" required=""/>
-                        </div>
-                        <div class="gaps">
-                            <p>Número Telefónico</p>
-                            <input type="text" name="phoneNumber" placeholder="" required=""/>
-                        </div>
-                        <div class="gaps">
-                            <p>Email</p>
-                            <input type="email" name="email" placeholder="" required="" />
-                        </div>
-                        <div class="gaps">
-                            <p>Síntomas</p>
-                            <textarea name="symptoms" placeholder="" required=""></textarea>
-                        </div>
-                    </div>
-                    <div class="right-agileinfo same">
-                        <div class="gaps">
-                            <p>Fecha</p>
-                            <input id="datepicker1" name="date" type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/aaaa';}" required="">
-                        </div>
-                        <div class="gaps">
-                            <p>Área</p>
-                            <select name="area" class="option" required>
-                                <option value=""></option>
-                                <option value="Ginecología">Ginecología</option>
-                                <option value="Obstetricia">Obstetricia</option>
-                                <option value="Consulta">Consulta</option>
-                                <option value="Tratamiento">Tratamiento</option>
-                            </select>
-                        </div>
-                        <div class="gaps">
-                            <p>Sexo</p>
-                            <select name="gender" class="option" required>
-                                <option value=""></option>
-                                <option value="Femenino">Femenino</option>
-                                <option value="Masculino">Masculino</option>
-                            </select>
-                        </div>
-                        <div class="gaps">
-                            <p>Hora</p>
-                            <select name="time" class="option" required>
-                                <option value=""></option>
-                                <option value="07:00">07:00</option>
-                                <option value="08:00">08:00</option>
-                                <option value="09:00">09:00</option>
-                                <option value="10:00">10:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="12:00">12:00</option>
-                                <option value="13:00">13:00</option>
-                                <option value="14:00">14:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="16:00">16:00</option>
-                                <option value="17:00">17:00</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <input type="submit" value="Reservar">
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Pie de página -->
-    <div class="footer">
-        <div class="container">
-            <h4>Nuestro <span>Newsletter</span></h4>
-            <form action="#" method="post">
-                <input type="email" name="Email" placeholder="Ingresa tu Email..." required="">
-                <input type="submit" value="Enviar">
-            </form>
-            <div class="agile_footer_copy">
-                <div class="w3agile_footer_grids">
-                    <div class="col-md-4 w3agile_footer_grid">
-                        <h3>Nosotros</h3>
-                        <p>Dr. Stuarth Kenneth Gonzalez<span>Ginecólogo y Obstetra</span></p>
-                    </div>
-                    <div class="col-md-4 w3agile_footer_grid">
-                        <h3>Información de Contacto</h3>
-                        <ul>
-                            <li><i class="fa fa-map-marker" aria-hidden="true"></i>WTC CDMX,<span>Col, Nápoles, Benito Juárez</span></li>
-                            <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:drstuarthgonzgmail.com">drstuarthgonz@gmail.com</a></li>
-                            <li><i class="fa fa-phone" aria-hidden="true"></i>+52 5621204896</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 w3agile_footer_grid w3agile_footer_grid1">
-                        <h3>Navegación</h3>
-                        <ul>
-                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="gallery.html">Galería</a></li>
-                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="appointment.html">Citas</a></li>
-                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="about.html">Nosotros</a></li>
-                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="contact.html">Contacto</a></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-            </div>
-            <div class="w3_agileits_copy_right_social">
-                <div class="col-md-6 agileits_w3layouts_copy_right">
-                    <p>&copy; 2024. Todos los derechos reservados.</p>
-                </div>
-                <div class="col-md-6 w3_agile_copy_right">
-                    <ul class="agileits_social_list">
-                        <li><a href="https://www.facebook.com/" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="https://twitter.com/" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-    <!-- JS -->
-    <script src="js/jquery-2.2.3.min.js"></script>
-    <script type="text/javascript" src="js/wickedpicker.js"></script>
-    <!-- Calendario -->
-    <script src="js/jquery-ui.js"></script>
-    <script>
-        $(function() {
-            $( "#datepicker1" ).datepicker();
-        });
-    </script>
-    <!-- Firebase y Bootstrap -->
-    <script src="js/firebase.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <!-- Firebase y Bootstrap -->
-    <script src="js/appointment.js"></script>
+    <script src="appointment.js"></script>
 </body>
 </html>
