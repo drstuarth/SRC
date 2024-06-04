@@ -63,7 +63,8 @@
             <div id="horarios" class="tab-pane fade">
                 <h3>Gestión de Horarios</h3>
                 <p>Aquí puedes administrar los horarios de atención.</p>
-                <!-- Agrega el contenido de la gestión de horarios aquí -->
+                <!-- Agrega el contenido del calendario aquí -->
+                <div id="calendar"></div>
             </div>
             <!-- Agrega más pestañas según sea necesario -->
         </div>
@@ -72,5 +73,19 @@
     <script src="js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="js/bootstrap.min.js"></script>
+    <!-- FullCalendar -->
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css' rel='stylesheet' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js'></script>
+    <!-- Moment.js (necesario para FullCalendar) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Inicializar FullCalendar
+            $('#calendar').fullCalendar({
+                // Configuración del calendario
+                // Puedes agregar opciones personalizadas aquí
+            });
+        });
+    </script>
 </body>
 </html>
