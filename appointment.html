@@ -6,14 +6,14 @@
     <title>Reserva tu cita</title>
     <!-- Enlaces a los estilos CSS y otras dependencias -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Scripts de Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
-    <script src="js/appointment.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Reserva tu cita</h1>
-        <form id="appointment">
+        <form id="appointmentForm">
             <div class="form-group">
                 <label for="patientName">Nombre completo:</label>
                 <input type="text" id="patientName" name="patientName" required>
@@ -41,6 +41,7 @@
             <button type="submit">Reservar cita</button>
         </form>
     </div>
-    
+    <!-- Script de tu aplicación -->
+    <script src="js/appointment.js"></script>
 </body>
 </html>
