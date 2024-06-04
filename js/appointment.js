@@ -16,7 +16,7 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 // Escuchar el evento de envío del formulario
-document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+document.getElementById('appointment').addEventListener('submit', function(event) {
     event.preventDefault(); // Evitar el envío del formulario
 
     // Obtener los valores del formulario
