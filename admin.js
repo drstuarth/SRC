@@ -31,14 +31,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         },
         eventClick: function(info) {
-            if (confirm(`¿Desea eliminar la cita de ${info.event.title}?`)) {
-                db.collection('reservations').doc(info.event.id).delete().then(() => {
+            const reservationId = info.event.id;
+            const reservationData = info.event.extendedProps;
+
+            const deleteOption = confirm(`¿Desea eliminar la cita de ${info.event.title}?`);
+            if (deleteOption) {
+                db.collection('reservations').doc(reservationId).delete().then(() => {
                     alert('Cita eliminada.');
                     info.event.remove();
                 }).catch(error => {
                     console.error('Error removing document: ', error);
                     alert('No se pudo eliminar la cita.');
                 });
+            } else {
+                const editOption = confirm('¿Desea editar la cita?');
+                if (editOption) {
+                    openEditModal(reservationId, reservationData);
+                }
             }
         }
     });
