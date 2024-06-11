@@ -26,7 +26,7 @@
                 <ul class="top_agile_w3l_info_icons">
                     <li><i class="fa fa-home" aria-hidden="true"></i>WTC Ciudad de México</li>
                     <li class="second"><i class="fa fa-phone" aria-hidden="true"></i>(+52) 5621204896</li>
-                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="drstuarthgonz@gmail.com">drstuarthgonz@gmail.com</a></li>
+                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:drstuarthgonz@gmail.com">drstuarthgonz@gmail.com</a></li>
                 </ul>
             </div>
             <div class="agileinfo_social_icons">
@@ -61,9 +61,7 @@
                                 <a href="admin.html" class="menu__link">Gestion de Citas</a>
                             </li>
                             <li class="m_nav_item menu__item" id="moble_nav_item_4">
-                                <a href="clientt.html" class="menu__link">Gestion de Clientes</a>
-                            </li>
-                            </li>
+                                <a href="clientt.html" class="menu__link">Gestion de Clientes</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -88,25 +86,35 @@
         </table>
     </div>
 
+    <!-- Firebase JavaScript SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="firebase-config.js"></script> <!-- Asegúrate de tener tu archivo de configuración de Firebase -->
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Inicializa Firestore
             const db = firebase.firestore();
+
+            // Referencia al cuerpo de la tabla
             const clientTableBody = document.getElementById('clientTableBody');
 
+            // Cargar clientes desde Firestore
             const loadClients = async () => {
-                const snapshot = await db.collection('appointments').get();
-                snapshot.forEach(doc => {
-                    const client = doc.data();
-                    addClientToTable(doc.id, client.name, client.email, client.phone);
-                });
+                try {
+                    const snapshot = await db.collection('appointments').get();
+                    snapshot.forEach(doc => {
+                        const client = doc.data();
+                        addClientToTable(doc.id, client.name, client.email, client.phone);
+                    });
+                } catch (error) {
+                    console.error("Error al cargar clientes: ", error);
+                }
             };
 
+            // Agregar cliente a la tabla
             const addClientToTable = (id, name, email, phone) => {
                 const row = document.createElement('tr');
-
                 row.innerHTML = `
                     <td class="client-name">${name}</td>
                     <td class="client-email">${email}</td>
@@ -116,7 +124,6 @@
                         <button class="btn btn-danger btn-sm delete-btn">Eliminar</button>
                     </td>
                 `;
-
                 clientTableBody.appendChild(row);
 
                 const editBtn = row.querySelector('.edit-btn');
@@ -126,6 +133,7 @@
                 deleteBtn.addEventListener('click', () => deleteClient(row, id));
             };
 
+            // Editar cliente
             const editClient = (row, id) => {
                 const nameCell = row.querySelector('.client-name');
                 const emailCell = row.querySelector('.client-email');
@@ -138,12 +146,15 @@
                         email: emailCell.textContent,
                         phone: phoneCell.textContent
                     };
-                    db.collection('appointments').doc(id).update(updatedClient);
-                    nameCell.contentEditable = false;
-                    emailCell.contentEditable = false;
-                    phoneCell.contentEditable = false;
-                    row.classList.remove('edit-mode');
-                    editBtn.textContent = 'Editar';
+                    db.collection('appointments').doc(id).update(updatedClient).then(() => {
+                        nameCell.contentEditable = false;
+                        emailCell.contentEditable = false;
+                        phoneCell.contentEditable = false;
+                        row.classList.remove('edit-mode');
+                        editBtn.textContent = 'Editar';
+                    }).catch(error => {
+                        console.error("Error al actualizar cliente: ", error);
+                    });
                 } else {
                     nameCell.contentEditable = true;
                     emailCell.contentEditable = true;
@@ -153,14 +164,19 @@
                 }
             };
 
+            // Eliminar cliente
             const deleteClient = (row, id) => {
                 db.collection('appointments').doc(id).delete().then(() => {
                     row.remove();
+                }).catch(error => {
+                    console.error("Error al eliminar cliente: ", error);
                 });
             };
 
+            // Cargar los clientes al cargar la página
             loadClients();
         });
     </script>
 </body>
 </html>
+
