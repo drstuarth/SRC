@@ -1,5 +1,3 @@
-// admin.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const calendarEl = document.getElementById('calendar');
     
@@ -20,12 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         const data = doc.data();
                         return {
                             id: doc.id,
-                            title: `${data.name} (${data.email})`,
+                            title: `${data.name} (${data.phone})`,
                             start: `${data.date}T${data.time}`,
                             end: `${data.date}T${data.time}`,
-                            extendedProps: {
-                                phone: data.phone
-                            }
                         };
                     });
                     successCallback(events);
