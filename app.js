@@ -49,7 +49,7 @@ function loadSchedule(date) {
               snapshot.forEach(doc => {
                   const reservation = doc.data();
                   const reservationItem = document.createElement('div');
-                  reservationItem.innerText = `${reservation.time} - ${reservation.name} (${reservation.email}, ${reservation.phone})`;
+                  reservationItem.innerText = `${reservation.time} - ${reservation.name} (${reservation.phone})`;
                   scheduleList.appendChild(reservationItem);
               });
           }
