@@ -16,6 +16,16 @@
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+    <style>
+        .header_agileinfo, .footer {
+            margin-bottom: 30px;
+        }
+        .container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,7 +36,7 @@
                 <ul class="top_agile_w3l_info_icons">
                     <li><i class="fa fa-home" aria-hidden="true"></i>WTC Ciudad de México</li>
                     <li class="second"><i class="fa fa-phone" aria-hidden="true"></i>(+52) 5621204896</li>
-                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="drstuarthgonz@gmail.com">drstuarthgonz@gmail.com</a></li>
+                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:drstuarthgonz@gmail.com">drstuarthgonz@gmail.com</a></li>
                 </ul>
             </div>
             <div class="agileinfo_social_icons">
@@ -63,32 +73,25 @@
                             <li class="m_nav_item menu__item" id="moble_nav_item_4">
                                 <a href="clientt.html" class="menu__link">Gestion de Clientes</a>
                             </li>
-                            </li>
                         </ul>
                     </nav>
                 </div>
             </nav>
         </div>
     </div>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administración de Horarios</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
-</head>
-<body>
+
     <div class="container">
         <h1>Administración de Horarios</h1>
         <div id="calendar"></div>
     </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     <script src="firebase-config.js"></script>
     <script src="admin.js"></script>
 
-        <div class="footer">
+    <div class="footer">
         <div class="container">
             <h4>Nuestro <span>Newsletter</span></h4>
             <form action="#" method="post">
