@@ -161,8 +161,8 @@
                 // Función para manejar el inicio de sesión exitoso
                 signInSuccessWithAuthResult: function(authResult, redirectUrl) {
                     // Redirigir a diferentes páginas según el usuario
-                    if (authResult.user.email === "dr.stuarthgonz@gmail.com") {
-                        window.location.href = "admin.html";
+                    if (authResult.user.email === "dr.stuarthgonz@hotmail.com") {
+                        window.location.href = "adminindex.html";
                     } else {
                         window.location.href = "user.html";
                     }
@@ -184,7 +184,7 @@
                 .then(function() {
                     // Redirigir a diferentes páginas según el usuario
                     if (email === "dr.stuarthgonz@hotmail.com") {
-                        window.location.href = "indexadmin.html";
+                        window.location.href = "adminindex.html";
                     } else {
                         window.location.href = "user.html";
                     }
@@ -205,7 +205,7 @@
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(function() {
                     // Redirigir a diferentes páginas según el usuario
-                    if (email === "dr.stuarthgonz@gmail.com") {
+                    if (email === "dr.stuarthgonz@hotmail.com") {
                         window.location.href = "adminindex.html";
                     } else {
                         window.location.href = "user.html";
