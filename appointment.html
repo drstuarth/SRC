@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-    <title>Citas</title>
+    <title>Inicio</title>
     <!-- for-meta-tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -102,65 +102,62 @@
             <div id="schedule-list" class="border p-4 rounded shadow-sm"></div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Modal for editing reservation -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="edit-reservation-form">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Editar Reserva</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="edit-reservation-id">
+                        <div class="form-group">
+                            <label for="edit-name">Nombre:</label>
+                            <input type="text" class="form-control" id="edit-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-phone">Teléfono:</label>
+                            <input type="tel" class="form-control" id="edit-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-date">Fecha:</label>
+                            <input type="date" class="form-control" id="edit-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-time">Hora:</label>
+                            <select class="form-control" id="edit-time" required>
+                                <option value="07:00">07:00 AM</option>
+                                <option value="08:00">08:00 AM</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                                <option value="17:00">05:00 PM</option>
+                                <option value="18:00">06:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="firebase-config.js"></script>
     <script src="app.js"></script>
-    <div class="footer">
-        <div class="container">
-            <h4>Nuestro <span>Newsletter</span></h4>
-            <form action="#" method="post">
-                <input type="email" name="Email" placeholder="Ingresa Tú Email..." required="">
-                <input type="submit" value="Send">
-            </form>
-            <div class="agile_footer_copy">
-                <div class="w3agile_footer_grids">
-                    <div class="col-md-4 w3agile_footer_grid">
-                        <h3>Nosotros</h3>
-                        <p>Dr. Stuarth Kenneth Gonzalez<span>Ginecologo y Obstetra</span></p>
-                    </div>
-                    <div class="col-md-4 w3agile_footer_grid">
-                        <h3>Contact Info</h3>
-                        <ul>
-                            <li><i class="fa fa-map-marker" aria-hidden="true"></i>WTC CDMX,<span>Col, Nápoles, Benito Juárez</span></li>
-                            <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:drstuarthgonz@gmail.com">drstuarthgonz@gmail.com</a></li>
-                            <li><i class="fa fa-phone" aria-hidden="true"></i>+52 5621204896</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 w3agile_footer_grid w3agile_footer_grid1">
-                        <h3>Navigation</h3>
-                        <ul>
-                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="gallery.html">Galeria</a></li>
-                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="appointment.html">Citas</a></li>
-                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="about.html">Nosotros</a></li>
-                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="contact.html">Contacto</a></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="w3_agileits_copy_right_social">
-                <div class="col-md-6 agileits_w3layouts_copy_right">
-                    <p>&copy; 2024. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 w3_agile_copy_right">
-                    <ul class="agileits_social_list">
-                        <li><a href="https://www.facebook.com/" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="https://twitter.com/" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="col-md-12 text-center mt-3">
-                <a href="index.html" class="btn btn-danger">Cerrar Sesión</a>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
-
