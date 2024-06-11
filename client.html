@@ -5,32 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Clientes</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .edit-mode {
-            background-color: #f9f9f9;
-        }
-    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="mb-4">Registro de Clientes</h2>
-        <form id="clientForm">
-            <div class="form-group">
-                <label for="clientName">Nombre</label>
-                <input type="text" class="form-control" id="clientName" required>
-            </div>
-            <div class="form-group">
-                <label for="clientEmail">Correo</label>
-                <input type="email" class="form-control" id="clientEmail" required>
-            </div>
-            <div class="form-group">
-                <label for="clientPhone">Teléfono</label>
-                <input type="tel" class="form-control" id="clientPhone" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Agregar Cliente</button>
-        </form>
-
-        <h2 class="mt-5">Historial de Clientes</h2>
+        <h2 class="mb-4">Historial de Clientes</h2>
         <table class="table table-bordered mt-3">
             <thead>
                 <tr>
@@ -46,24 +24,23 @@
         </table>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script> <!-- Asegúrate de tener tu archivo de configuración de Firebase -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const clientForm = document.getElementById('clientForm');
+            const db = firebase.firestore();
             const clientTableBody = document.getElementById('clientTableBody');
 
-            clientForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const clientName = document.getElementById('clientName').value;
-                const clientEmail = document.getElementById('clientEmail').value;
-                const clientPhone = document.getElementById('clientPhone').value;
+            const loadClients = async () => {
+                const snapshot = await db.collection('appointments').get();
+                snapshot.forEach(doc => {
+                    const client = doc.data();
+                    addClientToTable(doc.id, client.name, client.email, client.phone);
+                });
+            };
 
-                addClient(clientName, clientEmail, clientPhone);
-
-                clientForm.reset();
-            });
-
-            const addClient = (name, email, phone) => {
+            const addClientToTable = (id, name, email, phone) => {
                 const row = document.createElement('tr');
 
                 row.innerHTML = `
@@ -81,17 +58,23 @@
                 const editBtn = row.querySelector('.edit-btn');
                 const deleteBtn = row.querySelector('.delete-btn');
 
-                editBtn.addEventListener('click', () => editClient(row));
-                deleteBtn.addEventListener('click', () => row.remove());
+                editBtn.addEventListener('click', () => editClient(row, id));
+                deleteBtn.addEventListener('click', () => deleteClient(row, id));
             };
 
-            const editClient = (row) => {
+            const editClient = (row, id) => {
                 const nameCell = row.querySelector('.client-name');
                 const emailCell = row.querySelector('.client-email');
                 const phoneCell = row.querySelector('.client-phone');
                 const editBtn = row.querySelector('.edit-btn');
 
                 if (editBtn.textContent === 'Guardar') {
+                    const updatedClient = {
+                        name: nameCell.textContent,
+                        email: emailCell.textContent,
+                        phone: phoneCell.textContent
+                    };
+                    db.collection('appointments').doc(id).update(updatedClient);
                     nameCell.contentEditable = false;
                     emailCell.contentEditable = false;
                     phoneCell.contentEditable = false;
@@ -105,6 +88,14 @@
                     editBtn.textContent = 'Guardar';
                 }
             };
+
+            const deleteClient = (row, id) => {
+                db.collection('appointments').doc(id).delete().then(() => {
+                    row.remove();
+                });
+            };
+
+            loadClients();
         });
     </script>
 </body>
