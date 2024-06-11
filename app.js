@@ -7,7 +7,6 @@ reservationForm.addEventListener('submit', function(event) {
     event.preventDefault();
     
     const name = event.target.name.value;
-    const email = event.target.email.value;
     const phone = event.target.phone.value;
     const date = event.target.date.value;
     const time = event.target.time.value;
@@ -22,7 +21,6 @@ reservationForm.addEventListener('submit', function(event) {
           } else {
               db.collection('reservations').add({
                   name,
-                  email,
                   phone,
                   date,
                   time
