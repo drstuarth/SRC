@@ -1,11 +1,6 @@
-// app.js
-
-// Referencia al formulario de citas
 const reservationForm = document.getElementById('reservation-form');
-// Referencia a la lista de horarios reservados
 const scheduleList = document.getElementById('schedule-list');
 
-// Función para agregar una reserva
 reservationForm.addEventListener('submit', function(event) {
     event.preventDefault();
     
@@ -38,7 +33,6 @@ reservationForm.addEventListener('submit', function(event) {
       });
 });
 
-// Función para cargar el horario disponible
 function loadSchedule(date) {
     scheduleList.innerHTML = '';
     
@@ -60,7 +54,6 @@ function loadSchedule(date) {
       });
 }
 
-// Escuchar cambios en la fecha seleccionada
 document.getElementById('date').addEventListener('change', function(event) {
     const date = event.target.value;
     loadSchedule(date);
