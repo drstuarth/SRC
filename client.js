@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Firebase configuration
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAJvIbzNr_YWA5HArA1PgDfuTRiuySj1yw",
+  authDomain: "sdrc-654ac.firebaseapp.com",
+  projectId: "sdrc-654ac",
+  storageBucket: "sdrc-654ac.appspot.com",
+  messagingSenderId: "816986947863",
+  appId: "1:816986947863:web:b5dbd70250de382ef7f752",
     };
 
     // Initialize Firebase
