@@ -1,18 +1,9 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="es">
 <head>
     <title>Administrar Horarios</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="application/x-javascript">
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/font-awesome.css" rel="stylesheet">
@@ -25,12 +16,23 @@
             margin-top: 30px;
             margin-bottom: 30px;
         }
+        .fc-header-toolbar {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .fc-daygrid-day {
+            cursor: pointer;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
 </head>
-
 <body>
     <div class="main" id="home">
-        <!-- header -->
         <div class="header_agileinfo">
             <div class="w3_agileits_header_text">
                 <ul class="top_agile_w3l_info_icons">
@@ -65,13 +67,13 @@
                     <nav class="menu menu--sebastian">
                         <ul id="m_nav_list" class="m_nav menu__list">
                             <li class="m_nav_item menu__item" id="m_nav_item_1">
-                                <a href="adminindex.html" class="menu__link"> Inicio </a>
+                                <a href="adminindex.html" class="menu__link">Inicio</a>
                             </li>
                             <li class="m_nav_item menu__item menu__item--current" id="moble_nav_item_2">
-                                <a href="admin.html" class="menu__link">Gestion de Citas</a>
+                                <a href="admin.html" class="menu__link">Gestión de Citas</a>
                             </li>
                             <li class="m_nav_item menu__item" id="moble_nav_item_4">
-                                <a href="client.html" class="menu__link">Gestion de Clientes</a>
+                                <a href="client.html" class="menu__link">Gestión de Clientes</a>
                             </li>
                         </ul>
                     </nav>
@@ -85,9 +87,58 @@
         <div id="calendar"></div>
     </div>
 
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="edit-reservation-form">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Editar Reserva</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="edit-name">Nombre</label>
+                            <input type="text" class="form-control" id="edit-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-phone">Teléfono</label>
+                            <input type="text" class="form-control" id="edit-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-date">Fecha</label>
+                            <input type="date" class="form-control" id="edit-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-time">Hora</label>
+                            <select class="form-control" id="edit-time" required>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                                <option value="17:00">05:00 PM</option>
+                                <option value="18:00">06:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/es.js"></script>
     <script src="firebase-config.js"></script>
     <script src="admin.js"></script>
 
@@ -96,16 +147,16 @@
             <h4>Nuestro <span>Newsletter</span></h4>
             <form action="#" method="post">
                 <input type="email" name="Email" placeholder="Ingresa Tú Email..." required="">
-                <input type="submit" value="Send">
+                <input type="submit" value="Enviar">
             </form>
             <div class="agile_footer_copy">
                 <div class="w3agile_footer_grids">
                     <div class="col-md-4 w3agile_footer_grid">
                         <h3>Nosotros</h3>
-                        <p>Dr. Stuarth Kenneth Gonzalez<span>Ginecologo y Obstetra</span></p>
+                        <p>Dr. Stuarth Kenneth Gonzalez<span>Ginecólogo y Obstetra</span></p>
                     </div>
                     <div class="col-md-4 w3agile_footer_grid">
-                        <h3>Contact Info</h3>
+                        <h3>Información de Contacto</h3>
                         <ul>
                             <li><i class="fa fa-map-marker" aria-hidden="true"></i>WTC CDMX,<span>Col, Nápoles, Benito Juárez</span></li>
                             <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:drstuarthgonz@gmail.com">drstuarthgonz@gmail.com</a></li>
@@ -113,9 +164,9 @@
                         </ul>
                     </div>
                     <div class="col-md-4 w3agile_footer_grid w3agile_footer_grid1">
-                        <h3>Navigation</h3>
+                        <h3>Navegación</h3>
                         <ul>
-                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="gallery.html">Galeria</a></li>
+                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="gallery.html">Galería</a></li>
                             <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="appointment.html">Citas</a></li>
                             <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="about.html">Nosotros</a></li>
                             <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a href="contact.html">Contacto</a></li>
@@ -126,7 +177,7 @@
             </div>
             <div class="w3_agileits_copy_right_social">
                 <div class="col-md-6 agileits_w3layouts_copy_right">
-                    <p>&copy; 2024. All rights reserved.</p>
+                    <p>&copy; 2024. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 w3_agile_copy_right">
                     <ul class="agileits_social_list">
@@ -141,5 +192,42 @@
     <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
     <script src="js/jquery-2.2.3.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                editable: true,
+                events: function(fetchInfo, successCallback, failureCallback) {
+                    // Aquí puedes cargar eventos desde Firestore u otra fuente
+                    // successCallback(events);
+                },
+                eventClick: function(info) {
+                    var event = info.event;
+                    $('#editModal').modal('show');
+                    $('#edit-name').val(event.title);
+                    $('#edit-phone').val(event.extendedProps.phone);
+                    $('#edit-date').val(event.start.toISOString().split('T')[0]);
+                    $('#edit-time').val(event.start.toISOString().split('T')[1].substring(0, 5));
+
+                    $('#edit-reservation-form').on('submit', function(e) {
+                        e.preventDefault();
+                        event.setProp('title', $('#edit-name').val());
+                        event.setExtendedProp('phone', $('#edit-phone').val());
+                        event.setStart($('#edit-date').val() + 'T' + $('#edit-time').val());
+                        calendar.updateEvent(event);
+                        $('#editModal').modal('hide');
+                    });
+                }
+            });
+            calendar.render();
+        });
+    </script>
 </body>
 </html>
