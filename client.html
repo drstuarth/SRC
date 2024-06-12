@@ -1,63 +1,71 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Clientes</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Historial de Clientes</h1>
-        <ul id="client-list" class="list-group">
-            <!-- Aquí se mostrarán los clientes -->
-        </ul>
+    <div class="main" id="home">
+        <div class="header_agileinfo">
+            <div class="w3_agileits_header_text">
+                <ul class="top_agile_w3l_info_icons">
+                    <li><i class="fa fa-home" aria-hidden="true"></i>WTC Ciudad de México</li>
+                    <li class="second"><i class="fa fa-phone" aria-hidden="true"></i>(+52) 5621204896</li>
+                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:drstuarthgonz@gmail.com">drstuarthgonz@gmail.com</a></li>
+                </ul>
+            </div>
+            <div class="agileinfo_social_icons">
+                <ul class="agileits_social_list">
+                    <li><a href="https://www.facebook.com/" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="https://twitter.com/" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.linkedin.com/" class="w3_agile_linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="header-bottom">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="logo">
+                        <h3><a class="navbar-brand" href="user.html"> Dr. Stuarth <p>Gonzalez</p></a></h3>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+                    <nav class="menu menu--sebastian">
+                        <ul id="m_nav_list" class="m_nav menu__list">
+                            <li class="m_nav_item menu__item" id="m_nav_item_1"> <a href="user.html" class="menu__link">Inicio</a></li>
+                            <li class="m_nav_item menu__item" id="moble_nav_item_2"> <a href="about.html" class="menu__link">Acerca de</a></li>
+                            <li class="m_nav_item menu__item" id="moble_nav_item_4"> <a href="appointment.html" class="menu__link">Citas</a></li>
+                            <li class="m_nav_item menu__item" id="moble_nav_item_5"> <a href="gallery.html" class="menu__link">Galería</a></li>
+                            <li class="m_nav_item menu__item" id="moble_nav_item_6"> <a href="contact.html" class="menu__link">Contacto</a></li>
+                            <li class="m_nav_item menu__item menu__item--current" id="moble_nav_item_7"> <a href="client.html" class="menu__link">Historial de Clientes</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </nav>
+        </div>
     </div>
-
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Historial de Clientes</h1>
+        <div id="client-list" class="border p-4 rounded shadow-sm">
+            <!-- Client list will be populated here -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="firebase-config.js"></script>
-    <script>
-        // Referencia a la colección de citas
-        var appointmentsRef = firebase.firestore().collection('appointments');
-
-        // Referencia al elemento <ul> donde se mostrará la lista de clientes
-        var clientList = document.getElementById('client-list');
-
-        // Función para obtener el historial de clientes
-        function fetchClientHistory() {
-            appointmentsRef.get().then((querySnapshot) => {
-                // Limpiar la lista antes de agregar los nuevos elementos
-                clientList.innerHTML = '';
-
-                querySnapshot.forEach((doc) => {
-                    // Obtener los datos de cada cita
-                    var appointmentData = doc.data();
-
-                    // Crear un elemento <li> para mostrar la información del cliente
-                    var listItem = document.createElement('li');
-                    listItem.className = 'list-group-item';
-                    listItem.innerHTML = `
-                        <h5>${appointmentData.name}</h5>
-                        <p><strong>Fecha:</strong> ${appointmentData.date}</p>
-                        <p><strong>Hora:</strong> ${appointmentData.time}</p>
-                        <p><strong>Teléfono:</strong> ${appointmentData.phone}</p>
-                        <p><strong>Correo Electrónico:</strong> ${appointmentData.email}</p>
-                        <p><strong>Comentarios:</strong> ${appointmentData.comments}</p>
-                    `;
-
-                    // Agregar el elemento <li> a la lista
-                    clientList.appendChild(listItem);
-                });
-            });
-        }
-
-        // Cargar el historial de clientes cuando la página esté lista
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchClientHistory();
-        });
-    </script>
+    <script src="client.js"></script>
 </body>
 </html>
