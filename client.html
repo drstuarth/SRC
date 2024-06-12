@@ -1,67 +1,98 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Clientes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/font-awesome.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+        .header_agileinfo, .footer {
+            margin-bottom: 30px;
         }
-        h1 {
-            text-align: center;
+        .container {
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        li {
+        th, td {
             border: 1px solid #ddd;
-            margin-bottom: 10px;
-            padding: 10px;
+            padding: 8px;
+            text-align: left;
         }
-        li:hover {
-            background-color: #f5f5f5;
-        }
-        .client-details {
-            font-weight: bold;
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
-    <h1>Historial de Clientes</h1>
-    <ul id="client-list"></ul>
+    <div class="main" id="home">
+        <div class="header_agileinfo">
+            <!-- Header content goes here -->
+        </div>
+        <div class="header-bottom">
+            <!-- Navigation menu goes here -->
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Historial de Clientes</h1>
+        <table id="client-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Fecha de Cita</th>
+                    <th>Hora de Cita</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Client data will be populated here -->
+            </tbody>
+        </table>
+    </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="firebase-config.js"></script>
     <script>
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
+        document.addEventListener('DOMContentLoaded', function() {
+            var clientTable = document.getElementById('client-table');
+            var db = firebase.firestore();
+            
+            // Obtener datos de clientes desde Firestore
+            db.collection("appointments").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    var appointmentData = doc.data();
+                    var row = clientTable.insertRow(-1);
+                    var nameCell = row.insertCell(0);
+                    var phoneCell = row.insertCell(1);
+                    var emailCell = row.insertCell(2);
+                    var dateCell = row.insertCell(3);
+                    var timeCell = row.insertCell(4);
 
-        // Obtener datos de los clientes
-        var clientList = document.getElementById('client-list');
-
-        db.collection("clients").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                var clientData = doc.data();
-                var clientItem = document.createElement('li');
-                var clientDetails = `
-                    <div class="client-details">
-                        <p>Nombre: ${clientData.name}</p>
-                        <p>Teléfono: ${clientData.phone}</p>
-                        <p>Email: ${clientData.email}</p>
-                        <p>Fecha de Cita: ${clientData.appointmentDate}</p>
-                        <p>Hora de Cita: ${clientData.appointmentTime}</p>
-                        <p>Motivo de la Cita: ${clientData.appointmentReason}</p>
-                    </div>
-                `;
-                clientItem.innerHTML = clientDetails;
-                clientList.appendChild(clientItem);
+                    nameCell.innerHTML = appointmentData.name;
+                    phoneCell.innerHTML = appointmentData.phone;
+                    emailCell.innerHTML = appointmentData.email;
+                    dateCell.innerHTML = appointmentData.date;
+                    timeCell.innerHTML = appointmentData.time;
+                });
+            }).catch((error) => {
+                console.error("Error al obtener los datos de los clientes: ", error);
             });
         });
     </script>
+
+    <div class="footer">
+        <!-- Footer content goes here -->
+    </div>
+    <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="js/bootstrap.js"></script>
 </body>
 </html>
