@@ -1,12 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Clientes</title>
+    <title>Clientes Frecuentes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+    <style>
+        .header_agileinfo, .footer {
+            margin-bottom: 30px;
+        }
+        .container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .fc-header-toolbar {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .fc-daygrid-day {
+            cursor: pointer;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <div class="main" id="home">
@@ -25,7 +48,7 @@
                     <li><a href="https://www.linkedin.com/" class="w3_agile_linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                 </ul>
             </div>
-            <div class="clearfix"> </div>
+            <div class="clearfix"></div>
         </div>
         <div class="header-bottom">
             <nav class="navbar navbar-default">
@@ -37,27 +60,27 @@
                         <span class="icon-bar"></span>
                     </button>
                     <div class="logo">
-                        <h3><a class="navbar-brand" href="user.html"> Dr. Stuarth <p>Gonzalez</p></a></h3>
+                        <h3><a class="navbar-brand" href="index.html"> Dr. Stuarth <p>Gonzalez</p> <p>Administracion </p></a></h3>
                     </div>
                 </div>
                 <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                     <nav class="menu menu--sebastian">
                         <ul id="m_nav_list" class="m_nav menu__list">
-                            <li class="m_nav_item menu__item" id="m_nav_item_1"> <a href="user.html" class="menu__link">Inicio</a></li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_2"> <a href="about.html" class="menu__link">Acerca de</a></li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_4"> <a href="appointment.html" class="menu__link">Citas</a></li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_5"> <a href="gallery.html" class="menu__link">Galería</a></li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_6"> <a href="contact.html" class="menu__link">Contacto</a></li>
-                            <li class="m_nav_item menu__item menu__item--current" id="moble_nav_item_7"> <a href="client.html" class="menu__link">Historial de Clientes</a></li>
+                            <li class="m_nav_item menu__item" id="m_nav_item_1">
+                                <a href="adminindex.html" class="menu__link">Inicio</a>
+                            </li>
+                            <li class="m_nav_item menu__item menu__item--current" id="moble_nav_item_2">
+                                <a href="admin.html" class="menu__link">Gestión de Citas</a>
+                            </li>
+                            <li class="m_nav_item menu__item" id="moble_nav_item_4">
+                                <a href="client.html" class="menu__link">Gestión de Clientes</a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
             </nav>
         </div>
     </div>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Historial de Clientes</h1>
-        <div id="client-list" class="border p-4 rounded shadow-sm">
             <!-- Client list will be populated here -->
         </div>
     </div>
