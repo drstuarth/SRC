@@ -204,9 +204,15 @@
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 editable: true,
+                droppable: true,
                 events: function(fetchInfo, successCallback, failureCallback) {
                     // Aquí puedes cargar eventos desde Firestore u otra fuente
                     // successCallback(events);
+                },
+                eventDrop: function(info) {
+                    var event = info.event;
+                    // Actualiza el evento en la base de datos
+                    console.log('Evento movido:', event);
                 },
                 eventClick: function(info) {
                     var event = info.event;
@@ -216,7 +222,7 @@
                     $('#edit-date').val(event.start.toISOString().split('T')[0]);
                     $('#edit-time').val(event.start.toISOString().split('T')[1].substring(0, 5));
 
-                    $('#edit-reservation-form').on('submit', function(e) {
+                    $('#edit-reservation-form').off('submit').on('submit', function(e) {
                         e.preventDefault();
                         event.setProp('title', $('#edit-name').val());
                         event.setExtendedProp('phone', $('#edit-phone').val());
