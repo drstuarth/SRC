@@ -7,92 +7,57 @@
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/font-awesome.css" rel="stylesheet">
-    <style>
-        .header_agileinfo, .footer {
-            margin-bottom: 30px;
-        }
-        .container {
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
-    <div class="main" id="home">
-        <div class="header_agileinfo">
-            <!-- Header content goes here -->
-        </div>
-        <div class="header-bottom">
-            <!-- Navigation menu goes here -->
-        </div>
-    </div>
-
     <div class="container">
         <h1>Historial de Clientes</h1>
-        <table id="client-table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Teléfono</th>
-                    <th>Email</th>
-                    <th>Fecha de Cita</th>
-                    <th>Hora de Cita</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Client data will be populated here -->
-            </tbody>
-        </table>
+        <ul id="client-list" class="list-group">
+            <!-- Aquí se mostrarán los clientes -->
+        </ul>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="firebase-config.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var clientTable = document.getElementById('client-table');
-            var db = firebase.firestore();
-            
-            // Obtener datos de clientes desde Firestore
-            db.collection("appointments").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    var appointmentData = doc.data();
-                    var row = clientTable.insertRow(-1);
-                    var nameCell = row.insertCell(0);
-                    var phoneCell = row.insertCell(1);
-                    var emailCell = row.insertCell(2);
-                    var dateCell = row.insertCell(3);
-                    var timeCell = row.insertCell(4);
+        // Referencia a la colección de citas
+        var appointmentsRef = firebase.firestore().collection('appointments');
 
-                    nameCell.innerHTML = appointmentData.name;
-                    phoneCell.innerHTML = appointmentData.phone;
-                    emailCell.innerHTML = appointmentData.email;
-                    dateCell.innerHTML = appointmentData.date;
-                    timeCell.innerHTML = appointmentData.time;
+        // Referencia al elemento <ul> donde se mostrará la lista de clientes
+        var clientList = document.getElementById('client-list');
+
+        // Función para obtener el historial de clientes
+        function fetchClientHistory() {
+            appointmentsRef.get().then((querySnapshot) => {
+                // Limpiar la lista antes de agregar los nuevos elementos
+                clientList.innerHTML = '';
+
+                querySnapshot.forEach((doc) => {
+                    // Obtener los datos de cada cita
+                    var appointmentData = doc.data();
+
+                    // Crear un elemento <li> para mostrar la información del cliente
+                    var listItem = document.createElement('li');
+                    listItem.className = 'list-group-item';
+                    listItem.innerHTML = `
+                        <h5>${appointmentData.name}</h5>
+                        <p><strong>Fecha:</strong> ${appointmentData.date}</p>
+                        <p><strong>Hora:</strong> ${appointmentData.time}</p>
+                        <p><strong>Teléfono:</strong> ${appointmentData.phone}</p>
+                        <p><strong>Correo Electrónico:</strong> ${appointmentData.email}</p>
+                        <p><strong>Comentarios:</strong> ${appointmentData.comments}</p>
+                    `;
+
+                    // Agregar el elemento <li> a la lista
+                    clientList.appendChild(listItem);
                 });
-            }).catch((error) => {
-                console.error("Error al obtener los datos de los clientes: ", error);
             });
+        }
+
+        // Cargar el historial de clientes cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchClientHistory();
         });
     </script>
-
-    <div class="footer">
-        <!-- Footer content goes here -->
-    </div>
-    <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-    <script src="js/jquery-2.2.3.min.js"></script>
-    <script src="js/bootstrap.js"></script>
 </body>
 </html>
