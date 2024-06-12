@@ -1,180 +1,66 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Clientes</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="application/x-javascript">
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
-    </script>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="css/font-awesome.css" rel="stylesheet">
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        li:hover {
+            background-color: #f5f5f5;
+        }
+        .client-details {
+            font-weight: bold;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="main" id="home">
-        <!-- header -->
-        <div class="header_agileinfo">
-            <div class="w3_agileits_header_text">
-                <ul class="top_agile_w3l_info_icons">
-                    <li><i class="fa fa-home" aria-hidden="true"></i>WTC Ciudad de México</li>
-                    <li class="second"><i class="fa fa-phone" aria-hidden="true"></i>(+52) 5621204896</li>
-                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:drstuarthgonz@gmail.com">drstuarthgonz@gmail.com</a></li>
-                </ul>
-            </div>
-            <div class="agileinfo_social_icons">
-                <ul class="agileits_social_list">
-                    <li><a href="https://www.facebook.com/" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="https://twitter.com/" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href="https://www.linkedin.com/" class="w3_agile_linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                </ul>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="header-bottom">
-            <nav class="navbar navbar-default">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <div class="logo">
-                        <h3><a class="navbar-brand" href="index.html"> Dr. Stuarth <p>Gonzalez</p></a></h3>
-                    </div>
-                </div>
-                <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-                    <nav class="menu menu--sebastian">
-                        <ul id="m_nav_list" class="m_nav menu__list">
-                            <li class="m_nav_item menu__item menu__item--current" id="m_nav_item_1">
-                                <a href="adminindex.html" class="menu__link"> Inicio </a>
-                            </li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_2">
-                                <a href="admin.html" class="menu__link">Gestion de Citas</a>
-                            </li>
-                            <li class="m_nav_item menu__item" id="moble_nav_item_4">
-                                <a href="clientt.html" class="menu__link">Gestion de Clientes</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </nav>
-        </div>
-    </div>
-<body>
-    <div class="container mt-5">
-        <h2 class="mb-4">Historial de Clientes</h2>
-        <table class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Teléfono</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="clientTableBody">
-                <!-- Clientes se agregarán aquí -->
-            </tbody>
-        </table>
-    </div>
+    <h1>Historial de Clientes</h1>
+    <ul id="client-list"></ul>
 
-    <!-- Firebase JavaScript SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="firebase-config.js"></script> <!-- Asegúrate de tener tu archivo de configuración de Firebase -->
-    
+    <script src="firebase-config.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Inicializa Firestore
-            const db = firebase.firestore();
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
 
-            // Referencia al cuerpo de la tabla
-            const clientTableBody = document.getElementById('clientTableBody');
+        // Obtener datos de los clientes
+        var clientList = document.getElementById('client-list');
 
-            // Cargar clientes desde Firestore
-            const loadClients = async () => {
-                try {
-                    const snapshot = await db.collection('appointments').get();
-                    snapshot.forEach(doc => {
-                        const client = doc.data();
-                        addClientToTable(doc.id, client.name, client.email, client.phone);
-                    });
-                } catch (error) {
-                    console.error("Error al cargar clientes: ", error);
-                }
-            };
-
-            // Agregar cliente a la tabla
-            const addClientToTable = (id, name, email, phone) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="client-name">${name}</td>
-                    <td class="client-email">${email}</td>
-                    <td class="client-phone">${phone}</td>
-                    <td>
-                        <button class="btn btn-secondary btn-sm edit-btn">Editar</button>
-                        <button class="btn btn-danger btn-sm delete-btn">Eliminar</button>
-                    </td>
+        db.collection("clients").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                var clientData = doc.data();
+                var clientItem = document.createElement('li');
+                var clientDetails = `
+                    <div class="client-details">
+                        <p>Nombre: ${clientData.name}</p>
+                        <p>Teléfono: ${clientData.phone}</p>
+                        <p>Email: ${clientData.email}</p>
+                        <p>Fecha de Cita: ${clientData.appointmentDate}</p>
+                        <p>Hora de Cita: ${clientData.appointmentTime}</p>
+                        <p>Motivo de la Cita: ${clientData.appointmentReason}</p>
+                    </div>
                 `;
-                clientTableBody.appendChild(row);
-
-                const editBtn = row.querySelector('.edit-btn');
-                const deleteBtn = row.querySelector('.delete-btn');
-
-                editBtn.addEventListener('click', () => editClient(row, id));
-                deleteBtn.addEventListener('click', () => deleteClient(row, id));
-            };
-
-            // Editar cliente
-            const editClient = (row, id) => {
-                const nameCell = row.querySelector('.client-name');
-                const emailCell = row.querySelector('.client-email');
-                const phoneCell = row.querySelector('.client-phone');
-                const editBtn = row.querySelector('.edit-btn');
-
-                if (editBtn.textContent === 'Guardar') {
-                    const updatedClient = {
-                        name: nameCell.textContent,
-                        email: emailCell.textContent,
-                        phone: phoneCell.textContent
-                    };
-                    db.collection('appointments').doc(id).update(updatedClient).then(() => {
-                        nameCell.contentEditable = false;
-                        emailCell.contentEditable = false;
-                        phoneCell.contentEditable = false;
-                        row.classList.remove('edit-mode');
-                        editBtn.textContent = 'Editar';
-                    }).catch(error => {
-                        console.error("Error al actualizar cliente: ", error);
-                    });
-                } else {
-                    nameCell.contentEditable = true;
-                    emailCell.contentEditable = true;
-                    phoneCell.contentEditable = true;
-                    row.classList.add('edit-mode');
-                    editBtn.textContent = 'Guardar';
-                }
-            };
-
-            // Eliminar cliente
-            const deleteClient = (row, id) => {
-                db.collection('appointments').doc(id).delete().then(() => {
-                    row.remove();
-                }).catch(error => {
-                    console.error("Error al eliminar cliente: ", error);
-                });
-            };
-
-            // Cargar los clientes al cargar la página
-            loadClients();
+                clientItem.innerHTML = clientDetails;
+                clientList.appendChild(clientItem);
+            });
         });
     </script>
 </body>
