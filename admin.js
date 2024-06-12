@@ -1,8 +1,3 @@
-// admin.js
-
-// Importa la función openEditModal desde editModal.js
-import { openEditModal } from './editModal.js';
-
 document.addEventListener('DOMContentLoaded', function() {
     const calendarEl = document.getElementById('calendar');
     
@@ -41,11 +36,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const deleteOption = confirm(`¿Desea eliminar la cita de ${info.event.title}?`);
             if (deleteOption) {
-                deleteReservation(reservationId, info.event);
+                db.collection('reservations').doc(reservationId).delete().then(() => {
+                    alert('Cita eliminada.');
+                    info.event.remove();
+                }).catch(error => {
+                    console.error('Error removing document: ', error);
+                    alert('No se pudo eliminar la cita.');
+                });
             } else {
                 const editOption = confirm('¿Desea editar la cita?');
                 if (editOption) {
-                    // Usa la función openEditModal importada
                     openEditModal(reservationId, reservationData);
                 }
             }
